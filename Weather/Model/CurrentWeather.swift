@@ -11,10 +11,10 @@ class CurrentWeather {
     var cityKey : String = ""
     var cityInfoName : String = ""
     var weatherText : String = ""
-    var epochTime : Int = -1
+    var epochTime : Int = Int.min
     var isDayTime : Bool = true
     var temp : Int = Int.min
-    var weatherIcon: Int = -1
-    
+    var weatherIcon : Int = Int.min
+
 }
 

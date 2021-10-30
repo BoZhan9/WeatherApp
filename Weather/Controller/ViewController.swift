@@ -94,7 +94,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         var promises: [Promise< CurrentWeather>] = []
             
-        for i in 0 ..< cities.count - 1 {
+        for i in 0 ... cities.count - 1 {
             promises.append(getCurrentWeather(cities[i].key, cities[i]))
         }
         
@@ -113,30 +113,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     seal.reject(response.error!)
                 }
                 
-                let currWeather: [JSON] = JSON( response.data!).arrayValue
-                self.arrCityInfo = [CityInfo]()
+                let currentWeather: [JSON] = JSON( response.data!).arrayValue
                 self.arrCurrentWeather = [CurrentWeather]()
-                for weather in currWeather {
-                    let currentWeather = CurrentWeather()
-                    let cityKey = cityKey
+                let currWeather = CurrentWeather()
+                for weather in currentWeather {
+                    let cityKey = cityInfo.key
                     let cityInfoName = cityInfo.localizedName
                     let weatherText = weather["WeatherText"].stringValue
                     let epochTime = weather["EpochTime"].intValue
                     let isDayTime = weather["IsDayTime"].boolValue
-                    let temp = weather["Temperature"].intValue
+                    let temp = weather["Temperature"]["UnitType"].intValue
                     let weatherIcon = weather["WeatherIcon"].intValue
-                    currentWeather.cityKey = cityKey
-                    currentWeather.cityInfoName = cityInfoName
-                    currentWeather.weatherText = weatherText
-                    currentWeather.epochTime = epochTime
-                    currentWeather.isDayTime = isDayTime
-                    currentWeather.temp = temp
-                    currentWeather.weatherIcon = weatherIcon
+                    currWeather.cityKey = cityKey
+                    currWeather.cityInfoName = cityInfoName
+                    currWeather.weatherText = weatherText
+                    currWeather.epochTime = epochTime
+                    currWeather.isDayTime = isDayTime
+                    currWeather.temp = temp
+                    currWeather.weatherIcon = weatherIcon
                     
-                    self.arrCurrentWeather.append(currentWeather)
+                    self.arrCurrentWeather.append(currWeather)
                 }
                 
-                seal.fulfill(currentWeather)
+                seal.fulfill(currWeather)
                 
             }
         }
@@ -154,17 +153,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func getWeatherIcon(_ forcast: String) -> UIImage{
-        let img = UIImage(named: "01-s")!
-        let dayTime = cityInfo.isDayTime()
-        if dayTime {
-            guard let dayImage = dayIcons[forcast] else {return img}
-            return dayImage
-        }
-    
-        guard let nightImage = nightIcons[forcast] else {return img}
-        return nightImage
-    }
+//    func getWeatherIcon(_ forcast: String) -> UIImage{
+//        let img = UIImage(named: "01-s")!
+//        let dayTime = cityInfo.isDayTime()
+//        if dayTime {
+//            guard let dayImage = dayIcons[forcast] else {return img}
+//            return dayImage
+//        }
+//
+//        guard let nightImage = nightIcons[forcast] else {return img}
+//        return nightImage
+//    }
     
 }
 
