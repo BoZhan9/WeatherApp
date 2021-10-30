@@ -11,10 +11,10 @@
 		225C71C8272C9631004F98D7 /* CityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 225C71C7272C9631004F98D7 /* CityTableViewCell.xib */; };
 		225C71CA272D167C004F98D7 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C71C9272D167C004F98D7 /* CurrentWeather.swift */; };
 		225C71CC272D2243004F98D7 /* WeatherIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C71CB272D2243004F98D7 /* WeatherIcon.swift */; };
+		225C71CF272DE17C004F98D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 225C71CD272DE17C004F98D7 /* Main.storyboard */; };
 		75F65040272B90AD00E83A62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6503F272B90AD00E83A62 /* AppDelegate.swift */; };
 		75F65042272B90AD00E83A62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F65041272B90AD00E83A62 /* SceneDelegate.swift */; };
 		75F65044272B90AD00E83A62 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F65043272B90AD00E83A62 /* ViewController.swift */; };
-		75F65047272B90AD00E83A62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75F65045272B90AD00E83A62 /* Main.storyboard */; };
 		75F65049272B90AF00E83A62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75F65048272B90AF00E83A62 /* Assets.xcassets */; };
 		75F6504C272B90AF00E83A62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75F6504A272B90AF00E83A62 /* LaunchScreen.storyboard */; };
 		75F65057272B928400E83A62 /* SearchCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F65056272B928400E83A62 /* SearchCityViewController.swift */; };
@@ -29,11 +29,11 @@
 		225C71C7272C9631004F98D7 /* CityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityTableViewCell.xib; sourceTree = "<group>"; };
 		225C71C9272D167C004F98D7 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		225C71CB272D2243004F98D7 /* WeatherIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIcon.swift; sourceTree = "<group>"; };
+		225C71CE272DE17C004F98D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		75F6503C272B90AD00E83A62 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75F6503F272B90AD00E83A62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75F65041272B90AD00E83A62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		75F65043272B90AD00E83A62 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		75F65046272B90AD00E83A62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		75F65048272B90AF00E83A62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		75F6504B272B90AF00E83A62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		75F6504D272B90AF00E83A62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		75F65054272B922300E83A62 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				75F65045272B90AD00E83A62 /* Main.storyboard */,
+				225C71CD272DE17C004F98D7 /* Main.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -199,7 +199,7 @@
 				75F6504C272B90AF00E83A62 /* LaunchScreen.storyboard in Resources */,
 				75F65049272B90AF00E83A62 /* Assets.xcassets in Resources */,
 				225C71C8272C9631004F98D7 /* CityTableViewCell.xib in Resources */,
-				75F65047272B90AD00E83A62 /* Main.storyboard in Resources */,
+				225C71CF272DE17C004F98D7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,10 +267,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		75F65045272B90AD00E83A62 /* Main.storyboard */ = {
+		225C71CD272DE17C004F98D7 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				75F65046272B90AD00E83A62 /* Base */,
+				225C71CE272DE17C004F98D7 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

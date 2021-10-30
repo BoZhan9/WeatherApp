@@ -92,7 +92,7 @@ class SearchCityViewController: UIViewController, UISearchBarDelegate, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
         // You will change this to getr values from arrCityinfo and assign text
-        cell.textLabel?.text = "\(arrCityInfo[indexPath.row].localizedName), \(arrCityInfo[indexPath.row].administrativeID), \(arrCityInfo[indexPath.row].countryLocalizedName)"
+        cell.textLabel?.text = "\(arrCityInfo[indexPath.row].localizedName) \(arrCityInfo[indexPath.row].administrativeID), \(arrCityInfo[indexPath.row].countryLocalizedName)"
         
         return cell
     }

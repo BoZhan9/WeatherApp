@@ -31,7 +31,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tblView.dataSource = self
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         loadCurrentConditions()
         
@@ -44,7 +43,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = arrCurrentWeather[indexPath.row].weatherText // replace this with values from arrCurrentWeather array
+        cell.textLabel?.text = "\(arrCurrentWeather[indexPath.row].cityInfoName) \(arrCurrentWeather[indexPath.row].temp) °F, \(arrCurrentWeather[indexPath.row].weatherText)"
         return cell
     }
     
@@ -80,7 +79,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let cities = realm.objects(CityInfo.self)
             self.arrCityInfo.removeAll()
             getAllCurrentWeather(Array(cities)).done { currentWeather in
-               self.tblView.reloadData()
+                self.arrCurrentWeather = currentWeather
+                self.tblView.reloadData()
             }
             .catch { error in
                print(error)
@@ -93,7 +93,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func getAllCurrentWeather(_ cities: [CityInfo] ) -> Promise<[CurrentWeather]> {
             
         var promises: [Promise< CurrentWeather>] = []
-            
+    
+        if (cities.isEmpty) {
+            return when(fulfilled: promises)
+        }
+        
         for i in 0 ... cities.count - 1 {
             promises.append(getCurrentWeather(cities[i].key, cities[i]))
         }
@@ -113,27 +117,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     seal.reject(response.error!)
                 }
                 
-                let currentWeather: [JSON] = JSON( response.data!).arrayValue
-                self.arrCurrentWeather = [CurrentWeather]()
+                let currentWeather = JSON( response.data!).arrayValue[0]
+
                 let currWeather = CurrentWeather()
-                for weather in currentWeather {
-                    let cityKey = cityInfo.key
-                    let cityInfoName = cityInfo.localizedName
-                    let weatherText = weather["WeatherText"].stringValue
-                    let epochTime = weather["EpochTime"].intValue
-                    let isDayTime = weather["IsDayTime"].boolValue
-                    let temp = weather["Temperature"]["UnitType"].intValue
-                    let weatherIcon = weather["WeatherIcon"].intValue
-                    currWeather.cityKey = cityKey
-                    currWeather.cityInfoName = cityInfoName
-                    currWeather.weatherText = weatherText
-                    currWeather.epochTime = epochTime
-                    currWeather.isDayTime = isDayTime
-                    currWeather.temp = temp
-                    currWeather.weatherIcon = weatherIcon
-                    
-                    self.arrCurrentWeather.append(currWeather)
-                }
+
+                currWeather.cityKey = cityInfo.key
+                currWeather.cityInfoName = cityInfo.localizedName
+                currWeather.weatherText = currentWeather["WeatherText"].stringValue
+                currWeather.epochTime = currentWeather["EpochTime"].intValue
+                currWeather.isDayTime = currentWeather["IsDayTime"].boolValue
+                currWeather.temp = currentWeather["Temperature"]["Imperial"]["Value"].intValue
+                currWeather.tempType = currentWeather["Temperature"]["Imperial"]["Unit"].stringValue
+                currWeather.weatherIcon = currentWeather["WeatherIcon"].intValue
+                
+                //self.arrCurrentWeather.append(currWeather)
+                
                 
                 seal.fulfill(currWeather)
                 
