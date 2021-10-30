@@ -8,6 +8,6 @@
 import Foundation
 
 
-let apiKey = "xziBXKtWxRVEMzAG0vZJIcZDa2LTdu7N"
+let apiKey = "LIRbNPeZdcJuGASU4jVsjW6zkZ1cSZHn"
 let locationSearchURL = "https://dataservice.accuweather.com/locations/v1/cities/autocomplete?"
 let currentConditionURL = "https://dataservice.accuweather.com/currentconditions/v1/"

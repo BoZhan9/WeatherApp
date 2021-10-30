@@ -88,42 +88,58 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
        }catch{
            print("Error in loading cities from DB")
        }
-        
-        
-        
     }
   
     func getAllCurrentWeather(_ cities: [CityInfo] ) -> Promise<[CurrentWeather]> {
             
-            var promises: [Promise< CurrentWeather>] = []
+        var promises: [Promise< CurrentWeather>] = []
             
-//        for i in 0 ..< cities.count - 1 {
-//                promises.append( getCurrentWeather(cities[i].key) )
-//            }
-            
-            return when(fulfilled: promises)
-            
+        for i in 0 ..< cities.count - 1 {
+            promises.append(getCurrentWeather(cities[i].key, cities[i]))
         }
+        
+        return when(fulfilled: promises)
+            
+    }
     
     
-    func getCurrentWeather(_ cityKey : String) -> Promise<CurrentWeather>{
-            return Promise<CurrentWeather> { seal -> Void in
-                let url = ""
+    func getCurrentWeather(_ cityKey : String, _ cityInfo: CityInfo) -> Promise<CurrentWeather>{
+        return Promise<CurrentWeather> { seal -> Void in
+            let url = currentConditionURL + cityKey + "?apikey=" + apiKey
+            
+            AF.request(url).responseJSON { response in
                 
-                AF.request(url).responseJSON { response in
-                    
-                    if response.error != nil {
-                        seal.reject(response.error!)
-                    }
-                    
-                  
-                    let currentWeather = CurrentWeather()
-                    
-                    
-                    seal.fulfill(currentWeather)
-                    
+                if response.error != nil {
+                    seal.reject(response.error!)
                 }
+                
+                let currWeather: [JSON] = JSON( response.data!).arrayValue
+                self.arrCityInfo = [CityInfo]()
+                self.arrCurrentWeather = [CurrentWeather]()
+                for weather in currWeather {
+                    let currentWeather = CurrentWeather()
+                    let cityKey = cityKey
+                    let cityInfoName = cityInfo.localizedName
+                    let weatherText = weather["WeatherText"].stringValue
+                    let epochTime = weather["EpochTime"].intValue
+                    let isDayTime = weather["IsDayTime"].boolValue
+                    let temp = weather["Temperature"].intValue
+                    let weatherIcon = weather["WeatherIcon"].intValue
+                    currentWeather.cityKey = cityKey
+                    currentWeather.cityInfoName = cityInfoName
+                    currentWeather.weatherText = weatherText
+                    currentWeather.epochTime = epochTime
+                    currentWeather.isDayTime = isDayTime
+                    currentWeather.temp = temp
+                    currentWeather.weatherIcon = weatherIcon
+                    
+                    self.arrCurrentWeather.append(currentWeather)
+                }
+                
+                seal.fulfill(currentWeather)
+                
             }
+        }
         
     }
     
@@ -136,6 +152,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } catch {
             print("Error in deleting city")
         }
+    }
+    
+    func getWeatherIcon(_ forcast: String) -> UIImage{
+        let img = UIImage(named: "01-s")!
+        let dayTime = cityInfo.isDayTime()
+        if dayTime {
+            guard let dayImage = dayIcons[forcast] else {return img}
+            return dayImage
+        }
+    
+        guard let nightImage = nightIcons[forcast] else {return img}
+        return nightImage
     }
     
 }

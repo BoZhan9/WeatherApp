@@ -23,6 +23,7 @@ class SearchCityViewController: UIViewController, UISearchBarDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
+        print(Realm.Configuration.defaultConfiguration.fileURL as Any)
         // Do any additional setup after loading the view.
     }
     
